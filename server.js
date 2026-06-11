@@ -1,13 +1,24 @@
 const express=require("express");
 const products=require("./data/products");
-const { parseEnv } = require("node:util");
+const pool=require("./databse/db")
 const app=express();
+async function testdb() {
+    try{
+        const result=await pool.query("Select Now()");
+        console.log("database connected");
+        console.log(result.rows);
+    }
+    catch(error){
+        console.log(error.message);
+    }
+}
+testdb();
 
 app.get("/",(req,res)=>{
 res.send("Welcome to AI ecommerce agent");
 });
 app.get("/products",(req,res)=>{
-    const maxPrice=req.query.maxPrice;
+    const maxPrice=parseInt(req.query.maxPrice);
     if(maxPrice){
         const filterproducts=products.filter(
             product=>product.price<=maxPrice
