@@ -1,13 +1,34 @@
 const pool=require("../databse/db");
 const getProducts=async (req,res)=> {
     try{
-    const result=await pool.query(
-        "SELECT * FROM products"
-    )
-        res.json(result.rows);
+        const page=parseInt(req.query.page)||1;
+        const limit=parseInt(req.query.limit)||5;
+        const minprice=parseInt(req.query.minprice)||0;
+        const maxprice=parseInt(req.query.maxprice)||2147483647;
+        const {sort}=req.query;
+        const offset=(page-1)*limit;
+        let result;
+        if(sort==="price_desc"){
+     result=await pool.query(
+        "SELECT * FROM products WHERE price BETWEEN $1 AND $2  ORDER BY price DESC LIMIT $3 OFFSET $4",
+        [minprice,maxprice,limit,offset]
+    );}
+    else if(sort==="price_asc"){
+     result=await pool.query(
+        "SELECT * FROM products WHERE price BETWEEN $1 AND $2  ORDER BY price ASC LIMIT $3 OFFSET $4",
+        [minprice,maxprice,limit,offset]
+    );}
+    else{
+      result=await pool.query(
+        "SELECT * FROM products WHERE price BETWEEN $1 AND $2 LIMIT $3 OFFSET $4 ",
+        [minprice,maxprice,limit,offset]
+    );   
+    }
+        res.status(200).json(result.rows);
     }
     
     catch(error){
+        console.log(error);
         res.status(500).json({
             message:"internal server error"
         }            
@@ -15,7 +36,7 @@ const getProducts=async (req,res)=> {
     }
 };
 
-const Postproducts= async(req,res)=>{
+const Createproducts= async(req,res)=>{
     if(!req.body){
         return res.status(400).json({
             message:"body is missing"
@@ -41,7 +62,7 @@ res.status(500).json({
 })
 }};
 
-const getidProduct=async(req,res)=>{
+const getProductbyid=async(req,res)=>{
     const id=parseInt(req.params.id);
     try{
         const result=await pool.query(
@@ -112,4 +133,24 @@ const deleteProduct=async(req,res)=>{
         })
     }
 };
-module.exports={getProducts,Postproducts,getidProduct,updateProduct,deleteProduct};
+const searchProduct=async (req,res)=>{
+    try{
+        const {name}=req.query;
+        if(!name){
+    return res.status(400).json({
+        message:"name query parameter required"
+    });
+}
+        const result=await pool.query(
+            "SELECT *FROM products WHERE name ILIKE $1",
+            [`%${name}%`]
+        );
+        res.status(200).json(result.rows);
+    }
+    catch(error){
+        res.status(500).json({
+            error:error.message
+        });
+    }
+}
+module.exports={getProducts,Createproducts,getProductbyid,updateProduct,deleteProduct,searchProduct};
