@@ -153,4 +153,24 @@ const searchProduct=async (req,res)=>{
         });
     }
 }
-module.exports={getProducts,Createproducts,getProductbyid,updateProduct,deleteProduct,searchProduct};
+const getproductWithcategory=async (req,res)=>{
+    try {
+        const result=await pool.query(
+            `SELECT
+            products.id,
+            products.name,
+            products.price,
+            categories.name AS category_name
+            FROM products
+            INNER JOIN categories
+            ON products.category_id = categories.id`
+        )
+        res.status(201).json(result.rows);
+    }
+    catch(error){
+        res.status(500).json({
+            message:"server error"
+        });
+    }
+};
+module.exports={getProducts,Createproducts,getProductbyid,updateProduct,deleteProduct,searchProduct,getproductWithcategory};

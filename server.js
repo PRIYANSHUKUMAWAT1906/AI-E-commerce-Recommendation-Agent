@@ -1,5 +1,8 @@
 const express=require("express");
-const productRoute=require("./routes/productroutes")
+const productRoute=require("./routes/productroutes");
+const userRoute=require("./routes/userRoutes");
+const orderRoutes=require("./routes/orderRoutes");
+const reviewRoutes=require("./routes/reviewRoutes");
 const pool=require("./databse/db")
 const app=express();
 app.use(express.json());
@@ -18,7 +21,9 @@ testdb();
 app.get("/",(req,res)=>{
 res.send("Welcome to AI ecommerce agent");
 });
-
+app.use("/user",userRoute);
+app.use("/orders",orderRoutes);
+app.use("/review",reviewRoutes);
 app.use("/products", productRoute);
 
 app.get("/contact",(req,res)=>{
