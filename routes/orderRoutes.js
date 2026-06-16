@@ -1,5 +1,7 @@
 const express=require("express");
 const router=express.Router();
+const {authMiddleware}=require("../middleware/authmiddleware");
+const{adminMiddleware}=require("../middleware/adminmiddleware");
 const{
  createOrder,
     getOrders,
@@ -7,11 +9,11 @@ const{
     updateOrder,
     deleteOrder
 }=require("../controllers/ordercontroller")
-router.get("/", getOrders);
+router.get("/",authMiddleware, getOrders);
 
 router.get("/:id", getOrderById);
-router.post("/", createOrder);
+router.post("/",authMiddleware, createOrder);
 
-router.put("/:id", updateOrder);
-router.delete("/:id", deleteOrder);
+router.put("/:id",authMiddleware, updateOrder);
+router.delete("/:id", authMiddleware,adminMiddleware,deleteOrder);
 module.exports=router;

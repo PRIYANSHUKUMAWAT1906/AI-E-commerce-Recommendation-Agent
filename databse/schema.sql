@@ -43,3 +43,7 @@ CREATE TABLE reviews(
     rating INT,
     comment TEXT
 );
+ALTER TABLE users
+ADD COLUMN password VARCHAR(255);
+ALTER TABLE users
+ADD COLUMN role VARCHAR(20) DEFAULT 'user';

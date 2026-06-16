@@ -1,6 +1,6 @@
 const pool=require("../databse/db");
 
-const createReview = async (req, res) => {
+const createReview = async(req,res,next) => {
 
     const { user_id, product_id, rating, comment } = req.body;
 
@@ -34,7 +34,7 @@ const createReview = async (req, res) => {
 
 };
 
-const getProductReviews = async (req, res) => {
+const getProductReviews = async(req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -70,7 +70,7 @@ const getProductReviews = async (req, res) => {
     }
 
 };
-const getReviews = async (req, res) => {
+const getReviews = async (req,res,next)=> {
 
     try {
 
@@ -89,7 +89,7 @@ const getReviews = async (req, res) => {
     }
 
 };
-const getReviewById = async (req, res) => {
+const getReviewById = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -117,7 +117,7 @@ const getReviewById = async (req, res) => {
     }
 
 };
-const updateReview = async (req, res) => {
+const updateReview = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -153,7 +153,7 @@ const updateReview = async (req, res) => {
     }
 
 };
-const deleteReview = async (req, res) => {
+const deleteReview = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 

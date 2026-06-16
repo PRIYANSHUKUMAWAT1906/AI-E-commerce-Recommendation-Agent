@@ -1,5 +1,5 @@
 const pool=require("../databse/db");
-const getuser=async(req,res)=>{
+const getuser=async(req,res,next)=>{
     const id=parseInt(req.params.id);
 try{
     const result=await pool.query(
@@ -24,7 +24,7 @@ catch{
 }
 }
 ;
-const getuserByid=async(req,res)=>{
+const getuserByid=async(req,res,next)=>{
 const id = parseInt(req.params.id);
 
     try {
@@ -51,7 +51,7 @@ const id = parseInt(req.params.id);
     }
 }
 
-const getUserOrders = async (req, res) => {
+const getUserOrders = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -89,7 +89,7 @@ const getUserOrders = async (req, res) => {
     }
 
 };
-const createUser = async (req, res) => {
+const createUser = async (req,res,next) => {
 
     const { name, email } = req.body;
 
@@ -119,7 +119,7 @@ const createUser = async (req, res) => {
     }
 
 };
-const updateUser = async (req, res) => {
+const updateUser = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -161,7 +161,7 @@ const updateUser = async (req, res) => {
     }
 
 };
-const deleteUser = async (req, res) => {
+const deleteUser = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 

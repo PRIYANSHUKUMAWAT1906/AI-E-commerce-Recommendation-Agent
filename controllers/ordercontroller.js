@@ -1,5 +1,5 @@
 const pool=require("../databse/db");
-const createOrder = async (req, res) => {
+const createOrder = async (req,res,next) => {
 
     const { user_id, total_amount } = req.body;
 
@@ -32,7 +32,7 @@ const createOrder = async (req, res) => {
     }
 
 };
-const getOrders = async (req, res) => {
+const getOrders = async (req,res,next) => {
 
     try {
 
@@ -51,7 +51,7 @@ const getOrders = async (req, res) => {
     }
 
 };
-const getOrderById = async (req, res) => {
+const getOrderById = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -79,7 +79,7 @@ const getOrderById = async (req, res) => {
     }
 
 };
-const updateOrder = async (req, res) => {
+const updateOrder = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 
@@ -114,7 +114,7 @@ const updateOrder = async (req, res) => {
     }
 
 };
-const deleteOrder = async (req, res) => {
+const deleteOrder = async (req,res,next) => {
 
     const id = parseInt(req.params.id);
 

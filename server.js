@@ -3,6 +3,7 @@ const productRoute=require("./routes/productroutes");
 const userRoute=require("./routes/userRoutes");
 const orderRoutes=require("./routes/orderRoutes");
 const reviewRoutes=require("./routes/reviewRoutes");
+const authRoutes=require("./routes/authRoutes")
 const pool=require("./databse/db")
 const app=express();
 app.use(express.json());
@@ -25,7 +26,7 @@ app.use("/user",userRoute);
 app.use("/orders",orderRoutes);
 app.use("/review",reviewRoutes);
 app.use("/products", productRoute);
-
+app.use("/auth",authRoutes);
 app.get("/contact",(req,res)=>{
     res.send("welcome to contact");
 });

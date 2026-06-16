@@ -1,5 +1,6 @@
 const pool=require("../databse/db");
-const getProducts=async (req,res)=> {
+const getProducts=async (req,res,next)=> {
+     console.log("Create Product Controller Reached");
     try{
         const page=parseInt(req.query.page)||1;
         const limit=parseInt(req.query.limit)||5;
@@ -36,7 +37,8 @@ const getProducts=async (req,res)=> {
     }
 };
 
-const Createproducts= async(req,res)=>{
+const Createproducts= async(req,res,next)=>{
+     console.log("Create Product Controller Reached");
     if(!req.body){
         return res.status(400).json({
             message:"body is missing"
@@ -62,7 +64,7 @@ res.status(500).json({
 })
 }};
 
-const getProductbyid=async(req,res)=>{
+const getProductbyid=async(req,res,next)=>{
     const id=parseInt(req.params.id);
     try{
         const result=await pool.query(
@@ -82,7 +84,7 @@ return res.status(404).json({
         });
     }
 };
-const updateProduct=async(req,res)=>{
+const updateProduct=async(req,res,next)=>{
     const id=parseInt(req.params.id);
     const {name,price}=req.body;
 if(!name||!price){
@@ -111,7 +113,7 @@ catch(error){
     })
 }
 };
-const deleteProduct=async(req,res)=>{
+const deleteProduct=async(req,res,next)=>{
     const id=parseInt(req.params.id);
     try{
         const result=await pool.query(
@@ -133,7 +135,7 @@ const deleteProduct=async(req,res)=>{
         })
     }
 };
-const searchProduct=async (req,res)=>{
+const searchProduct=async (req,res,next)=>{
     try{
         const {name}=req.query;
         if(!name){
@@ -153,7 +155,7 @@ const searchProduct=async (req,res)=>{
         });
     }
 }
-const getproductWithcategory=async (req,res)=>{
+const getproductWithcategory=async (req,res,next)=>{
     try {
         const result=await pool.query(
             `SELECT
