@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/PRIYANSHUKUMAWAT1906/AI-E-commerce-Recommendation-Agent#readme",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
