@@ -1,6 +1,6 @@
 require("dotenv").config();
 const {
-    generateresponse,extractproductfilters,recommendProductsWithAI
+    generateresponse,extractproductfilters,recommendProductsWithAI,getPersonalizedRecommendation
 } = require("../service/aiService");
 
 const chatcontroller=async (req,res) => {
@@ -52,6 +52,30 @@ const recommendProducts = async(req,res)=>{
     }
 
 };
+
+const personalizedRecommendation = async(req,res)=>{
+
+    try{
+
+        const userId = req.user.userId;
+
+        const recommendation =
+            await getPersonalizedRecommendation(userId);
+
+        res.status(200).json( recommendation );
+
+    }
+    catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            message:"Failed to generate recommendation"
+        });
+
+    }
+
+};
 module.exports={
-    chatcontroller,recommendProducts
+    chatcontroller,recommendProducts,personalizedRecommendation
 };

@@ -52,3 +52,13 @@ SET role='admin'
 WHERE id=1;
 ALTER TABLE products
 ADD COLUMN description TEXT;
+ALTER TABLE orders
+ADD COLUMN product_id INT REFERENCES products(id);
+ALTER TABLE orders
+ADD COLUMN quantity INT DEFAULT 1;
+
+ALTER TABLE orders
+ADD COLUMN order_date TIMESTAMP DEFAULT NOW();
+UPDATE orders
+SET product_id = 1
+WHERE id = 1;
