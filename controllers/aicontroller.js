@@ -1,6 +1,6 @@
 require("dotenv").config();
 const {
-    generateresponse,extractproductfilters,recommendProductsWithAI,getPersonalizedRecommendation
+    generateresponse,extractproductfilters,recommendProductsWithAI,getPersonalizedRecommendation,reviewSummary,shoppingAssistant,compareProducts
 } = require("../service/aiService");
 
 const chatcontroller=async (req,res) => {
@@ -76,6 +76,58 @@ const personalizedRecommendation = async(req,res)=>{
     }
 
 };
+const compareProductsController = async(req,res)=>{
+ try{   const {product1,product2}=req.body;
+
+    const result=
+    await compareProducts(product1,product2);
+
+    res.json(result);}
+    catch(error){
+
+   console.log(error);
+
+   res.status(500).json({
+      message:error.message
+   });
+    }
+};
+const reviewSummaryController=
+async(req,res)=>{
+try{
+    const {productId}=req.params;
+
+    const summary=
+    await reviewSummary(productId);
+
+    res.json(summary);}
+    catch(error){
+
+   console.log(error);
+
+   res.status(500).json({
+      message:error.message
+   });
+    }
+};
+const shoppingAssistantController=
+async(req,res)=>{
+try{
+    const {message}=req.body;
+
+    const result=
+    await shoppingAssistant(message);
+
+    res.json(result);}
+    catch(error){
+
+   console.log(error);
+
+   res.status(500).json({
+      message:error.message
+   });
+    }
+};
 module.exports={
-    chatcontroller,recommendProducts,personalizedRecommendation
+    chatcontroller,recommendProducts,personalizedRecommendation,compareProductsController,shoppingAssistantController,reviewSummaryController
 };

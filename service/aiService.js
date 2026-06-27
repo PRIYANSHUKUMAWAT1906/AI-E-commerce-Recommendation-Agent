@@ -3,7 +3,7 @@ const pool=require("../databse/db");
 require("dotenv").config();
 const genai= new  GoogleGenerativeAI (process.env.GEMINI_API);
 const model=genai.getGenerativeModel({
-    model:"gemini-2.5-flash"
+    model:"gemini-2.5-flash-lite"
 });
 const generateresponse=async(message)=>{
     try{
@@ -257,6 +257,104 @@ const getProductsNotPurchased = async(userId)=>{
     }
 };
 
+const compareProducts = async(product1Id, product2Id)=>{
+    
+    const product1 = await pool.query(
+        "SELECT * FROM products WHERE id=$1",
+        [product1Id]
+    );
+
+    const product2 = await pool.query(
+        "SELECT * FROM products WHERE id=$1",
+        [product2Id]
+    );
+
+    const prompt = `
+Compare these products:
+
+Product 1:
+${JSON.stringify(product1.rows[0])}
+
+Product 2:
+${JSON.stringify(product2.rows[0])}
+
+Return JSON:
+
+{
+ "winner":"",
+ "reason":"",
+ "comparison":[]
+}
+`;
+
+    const result = await model.generateContent(prompt);
+
+    return result.response.text();
+}
+
+const reviewSummary = async(productId)=>{
+
+    const reviews = await pool.query(
+        `
+        SELECT *
+        FROM reviews
+        WHERE product_id=$1
+        `,
+        [productId]
+    );
+
+    const prompt = `
+Summarize these reviews:
+
+${JSON.stringify(reviews.rows)}
+
+Return JSON:
+
+{
+ "summary":"",
+ "pros":[],
+ "cons":[]
+}
+`;
+
+    const result=
+    await model.generateContent(prompt);
+
+    return result.response.text();
+};
+const shoppingAssistant=
+async(message)=>{
+
+    const products=
+    await pool.query(
+        "SELECT * FROM products"
+    );
+
+    const prompt=`
+You are an AI shopping assistant.
+
+User Query:
+${message}
+
+Products:
+${JSON.stringify(products.rows)}
+
+Recommend products.
+
+Return JSON:
+
+{
+ "summary":"",
+ "recommendations":[]
+}
+`;
+
+    const result=
+    await model.generateContent(prompt);
+
+    return result.response.text();
+};
+
 module.exports={
-    generateresponse,extractproductfilters,recommendProductsWithAI,getUserPurchaseHistory,getPersonalizedRecommendation
+    generateresponse,extractproductfilters,recommendProductsWithAI,getUserPurchaseHistory,getPersonalizedRecommendation,reviewSummary,shoppingAssistant,compareProducts
 };

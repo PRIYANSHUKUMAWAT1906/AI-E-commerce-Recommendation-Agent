@@ -1,5 +1,6 @@
 const{
-    chatcontroller,recommendProducts,personalizedRecommendation
+    chatcontroller,recommendProducts,personalizedRecommendation,
+reviewSummaryController,compareProductsController,shoppingAssistantController
 }=require("../controllers/aicontroller");
 const {authMiddleware}=require("../middleware/authmiddleware")
 const express=require("express");
@@ -10,5 +11,17 @@ router.get(
     "/personalized",
     authMiddleware,
     personalizedRecommendation
+);
+router.post(
+    "/compare",
+    compareProductsController
+);
+router.get(
+    "/review-summary/:productId",
+    reviewSummaryController
+);
+router.post(
+    "/shopping-assistant",
+    shoppingAssistantController
 );
 module.exports=router;
