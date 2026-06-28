@@ -1,4 +1,4 @@
-const pool=require("../databse/db");
+const pool=require("../database/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const getprofile=(req,res)=>{

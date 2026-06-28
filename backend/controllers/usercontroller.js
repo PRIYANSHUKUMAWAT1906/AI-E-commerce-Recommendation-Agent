@@ -1,4 +1,4 @@
-const pool=require("../databse/db");
+const pool=require("../database/db");
 const getuser=async(req,res,next)=>{
     const id=parseInt(req.params.id);
 try{

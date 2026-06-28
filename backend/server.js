@@ -5,8 +5,16 @@ const orderRoutes=require("./routes/orderRoutes");
 const reviewRoutes=require("./routes/reviewRoutes");
 const authRoutes=require("./routes/authRoutes")
 const aiRoutes=require("./routes/aiRoutes");
-const pool=require("./databse/db")
+const pool=require("./database/db")
+const cors=require("cors");
+
 const app=express();
+app.use(
+    cors({
+        origin: "http://localhost:5173",
+        credentials: true
+    })
+);
 app.use(express.json());
 async function testdb() {
     try{
@@ -28,7 +36,7 @@ app.use("/user",userRoute);
 app.use("/orders",orderRoutes);
 app.use("/review",reviewRoutes);
 app.use("/products", productRoute);
-app.use("/auth",authRoutes);
+app.use("/api/auth",authRoutes);
 app.get("/contact",(req,res)=>{
     res.send("welcome to contact");
 });

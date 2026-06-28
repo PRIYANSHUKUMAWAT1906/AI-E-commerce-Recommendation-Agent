@@ -1,4 +1,4 @@
-const pool=require("../databse/db");
+const pool=require("../database/db");
 const createOrder = async (req,res,next) => {
 
     const { user_id, total_amount } = req.body;

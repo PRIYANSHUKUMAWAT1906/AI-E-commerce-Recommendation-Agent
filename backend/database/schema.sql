@@ -62,3 +62,11 @@ ADD COLUMN order_date TIMESTAMP DEFAULT NOW();
 UPDATE orders
 SET product_id = 1
 WHERE id = 1;
+ALTER TABLE products
+ADD COLUMN brand VARCHAR(100);
+
+ALTER TABLE products
+ADD COLUMN rating NUMERIC(2,1);
+
+ALTER TABLE products
+ADD COLUMN description TEXT;

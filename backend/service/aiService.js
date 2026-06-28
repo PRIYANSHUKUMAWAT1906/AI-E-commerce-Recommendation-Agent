@@ -1,5 +1,5 @@
 const { GoogleGenerativeAI }=require("@google/generative-ai");
-const pool=require("../databse/db");
+const pool=require("../database/db");
 require("dotenv").config();
 const genai= new  GoogleGenerativeAI (process.env.GEMINI_API);
 const model=genai.getGenerativeModel({

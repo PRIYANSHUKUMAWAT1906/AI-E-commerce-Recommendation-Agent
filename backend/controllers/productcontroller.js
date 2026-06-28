@@ -1,4 +1,4 @@
-const pool=require("../databse/db");
+const pool=require("../database/db");
 const getProducts=async (req,res,next)=> {
      console.log("Create Product Controller Reached");
     try{
