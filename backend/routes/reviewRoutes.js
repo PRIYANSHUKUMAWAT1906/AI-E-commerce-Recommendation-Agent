@@ -6,7 +6,7 @@ createReview,getProductReviews,getReviews,updateReview,deleteReview,getReviewByI
 const {authMiddleware}=require("../middleware/authmiddleware");
 const{adminMiddleware}=require("../middleware/adminmiddleware");
 router.get("/",getReviews);
-router.post("/",authMiddleware,createReview);
+router.post("/products",authMiddleware,createReview);
 router.get("/products/:id",getProductReviews);
 router.put("/:id",authMiddleware, updateReview);
 router.get("/:id",authMiddleware, getReviewById);

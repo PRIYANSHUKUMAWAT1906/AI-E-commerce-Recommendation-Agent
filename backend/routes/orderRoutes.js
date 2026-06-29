@@ -11,9 +11,9 @@ const{
 }=require("../controllers/ordercontroller")
 router.get("/",authMiddleware, getOrders);
 
-router.get("/:id", getOrderById);
+router.get("/:id",authMiddleware, getOrderById);
 router.post("/",authMiddleware, createOrder);
 
-router.put("/:id",authMiddleware, updateOrder);
+router.put("/:id",authMiddleware,adminMiddleware, updateOrder);
 router.delete("/:id", authMiddleware,adminMiddleware,deleteOrder);
 module.exports=router;

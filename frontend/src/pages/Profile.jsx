@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
-
+import { useNavigate } from "react-router-dom";
 function Profile(){
-
+const navigate = useNavigate();
     const [profile,setProfile] = useState(null);
 
     useEffect(()=>{
+const token = localStorage.getItem("token");
 
+    if(!token){
+        alert("Please login first");
+        navigate("/login");
+        return;
+    }
         const fetchProfile = async()=>{
 
             try{

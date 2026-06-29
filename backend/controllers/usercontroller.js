@@ -51,39 +51,33 @@ const id = parseInt(req.params.id);
     }
 }
 
-const getUserOrders = async (req,res,next) => {
-
-    const id = parseInt(req.params.id);
+const getUserOrders = async (req,res) => {
 
     try {
+
+        const userId = req.user.userId;
 
         const result = await pool.query(
             `
             SELECT
-                users.id,
-                users.name,
-                orders.id AS order_id,
-                orders.total_amount
-            FROM users
-            INNER JOIN orders
-            ON users.id = orders.user_id
-            WHERE users.id = $1
+                id,
+                total_amount
+            FROM orders
+            WHERE user_id = $1
+            ORDER BY id DESC
             `,
-            [id]
+            [userId]
         );
 
-        if(result.rows.length === 0){
-            return res.status(404).json({
-                message: "user not found or no orders"
-            });
-        }
+        res.status(200).json(
+            result.rows
+        );
 
-        res.status(200).json(result.rows);
-
-    } catch(error){
+    }
+    catch(error){
 
         res.status(500).json({
-            message: "server error"
+            message:"server error"
         });
 
     }

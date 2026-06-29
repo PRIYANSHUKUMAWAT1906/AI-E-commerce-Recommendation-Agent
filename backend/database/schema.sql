@@ -70,3 +70,14 @@ ADD COLUMN rating NUMERIC(2,1);
 
 ALTER TABLE products
 ADD COLUMN description TEXT;
+CREATE TABLE order_items (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES orders(id),
+    product_id INTEGER REFERENCES products(id),
+    quantity INTEGER DEFAULT 1
+);
+CREATE TABLE wishlist (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    product_id INTEGER REFERENCES products(id)
+);

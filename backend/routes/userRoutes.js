@@ -9,6 +9,6 @@ router.get("/",authMiddleware,adminMiddleware,getuser);
 router.post("/",createUser);
 router.put("/",updateUser);
 router.delete("/",deleteUser);
-router.get("/:id/orders",authMiddleware,getUserOrders)
+router.get("/myorders",authMiddleware,getUserOrders)
 router.get("/:id",getuserByid);
 module.exports=router;

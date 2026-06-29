@@ -1,10 +1,10 @@
 const pool=require("../database/db");
 
 const createReview = async(req,res,next) => {
+const user_id = req.user.userId;
+    const { product_id, rating, comment } = req.body;
 
-    const { user_id, product_id, rating, comment } = req.body;
-
-    if(!user_id || !product_id || !rating){
+    if(!product_id || !rating){
         return res.status(400).json({
             message: "required fields missing"
         });

@@ -5,6 +5,7 @@ const orderRoutes=require("./routes/orderRoutes");
 const reviewRoutes=require("./routes/reviewRoutes");
 const authRoutes=require("./routes/authRoutes")
 const aiRoutes=require("./routes/aiRoutes");
+const wishlistRoutes=require("./routes/wishlistRoutes")
 const pool=require("./database/db")
 const cors=require("cors");
 
@@ -32,10 +33,11 @@ app.get("/",(req,res)=>{
 res.send("Welcome to AI ecommerce agent");
 });
 app.use("/api/ai",aiRoutes);
-app.use("/user",userRoute);
-app.use("/orders",orderRoutes);
-app.use("/review",reviewRoutes);
-app.use("/products", productRoute);
+app.use("/api/user",userRoute);
+app.use("/api/orders",orderRoutes);
+app.use("/api/review",reviewRoutes);
+app.use("/api/products", productRoute);
+app.use("/api/wishlist",wishlistRoutes);
 app.use("/api/auth",authRoutes);
 app.get("/contact",(req,res)=>{
     res.send("welcome to contact");

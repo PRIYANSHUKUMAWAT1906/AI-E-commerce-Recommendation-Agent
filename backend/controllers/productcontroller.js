@@ -3,7 +3,7 @@ const getProducts=async (req,res,next)=> {
      console.log("Create Product Controller Reached");
     try{
         const page=parseInt(req.query.page)||1;
-        const limit=parseInt(req.query.limit)||5;
+        const limit=parseInt(req.query.limit)||2147483647;
         const minprice=parseInt(req.query.minprice)||0;
         const maxprice=parseInt(req.query.maxprice)||2147483647;
         const {sort}=req.query;
