@@ -7,7 +7,34 @@ const [search,setSearch] = useState("");
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 const [maxPrice,setMaxPrice] = useState("");
+const [query, setQuery] = useState("");
+const [recommendation, setRecommendation] = useState("");
+const getRecommendation = async () => {
 
+    try {
+if(!query){
+    setRecommendation({message:"please write query"});
+    return;
+}
+        const response =
+            await api.post(
+                "/ai/recommend",
+                {
+                    message: query
+                }
+            );
+
+        setRecommendation(
+            response.data.recommendation
+        );
+
+    } catch(error){
+
+        console.log(error);
+
+    }
+
+};
     useEffect(() => {
 
 
@@ -68,6 +95,37 @@ const [maxPrice,setMaxPrice] = useState("");
   value={maxPrice}
   onChange={(e)=>setMaxPrice(e.target.value)}
 />
+
+<h2>AI Product Recommendation</h2>
+
+<input
+    type="text"
+    placeholder="Best product under 2000"
+    value={query}
+    onChange={(e) =>
+        setQuery(e.target.value)
+    }
+/>
+
+<button onClick={getRecommendation}>
+    Get Recommendation
+</button>
+{
+    recommendation &&
+    (
+        <div>
+
+            <h3>
+                AI Recommendation
+            </h3>
+
+            <p>
+                {recommendation}
+            </p>
+
+        </div>
+    )
+}
             {
                 filteredProducts.map((product) => (
     <ProductCard

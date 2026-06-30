@@ -15,15 +15,45 @@ try{
             `,
             [id]
     )
-
+res.json(result.rows[0]);
 }
 catch{
     res.status(500).json({
         message:"internal server error"
     })
 }
-}
-;
+};
+const getAllUsers = async(req,res) => {
+
+    try {
+
+        const result = await pool.query(
+            `
+            SELECT
+                id,
+                name,
+                email,
+                role
+            FROM users
+            ORDER BY id
+            `
+        );
+
+        res.status(200).json(
+            result.rows
+        );
+
+    } catch(error){
+
+        console.log(error);
+
+        res.status(500).json({
+            message:"server error"
+        });
+
+    }
+
+};
 const getuserByid=async(req,res,next)=>{
 const id = parseInt(req.params.id);
 
@@ -189,4 +219,9 @@ const deleteUser = async (req,res,next) => {
     }
 
 };
-module.exports={getuser,getuserByid,getUserOrders,createUser,updateUser,deleteUser};
+const adminCheck = (req,res) => {
+    res.status(200).json({
+        message:"Admin verified"
+    });
+};
+module.exports={getuser,getuserByid,getUserOrders,createUser,updateUser,deleteUser, getAllUsers,adminCheck};

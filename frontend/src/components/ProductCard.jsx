@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import "./ProductCard.css";
 function ProductCard({ product }) {
    const navigate = useNavigate(); 
    const addToWishlist = async (productId) => {
@@ -59,13 +60,8 @@ const token = localStorage.getItem("token");
         alert("Added to cart");
     };
   return (
-    <div
-      style={{
-        border: "1px solid black",
-        padding: "10px",
-        margin: "10px"
-      }}
-    >
+    <div className="product-card">
+      
       <h3>{product.name}</h3>
 
       <p>
@@ -76,6 +72,7 @@ const token = localStorage.getItem("token");
     <button>
         View Details
     </button>
+    
 </Link>
 <button onClick={()=>{addToCart(product);}}>
   Add To Cart

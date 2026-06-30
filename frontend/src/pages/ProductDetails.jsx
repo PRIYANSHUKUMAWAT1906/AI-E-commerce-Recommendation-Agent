@@ -10,6 +10,30 @@ const [reviews, setReviews] = useState([]);
     const [product, setProduct] = useState(null);
 const [rating, setRating] = useState("");
 const [comment, setComment] = useState("");
+const [summary, setSummary] = useState("");
+const [loading,setLoading] = useState(false);
+const getReviewSummary = async () => {
+setLoading(true);
+    try {
+
+        const response =
+            await api.get(
+                `/ai/review-summary/${id}`
+            );
+
+        setSummary(response.data);
+console.log(response.data);
+    } catch(error){
+
+        console.log(error);
+
+    }
+finally{
+
+    setLoading(false);
+
+}
+};
 const submitReview = async () => {
 try{
     const token = localStorage.getItem("token");
@@ -32,7 +56,14 @@ try{
             }
         }
     );
-window.location.reload();}
+setReviews(prev => [
+    ...prev,
+    {
+        reviewer: "You",
+        rating,
+        comment
+    }
+]);}
     catch(error){
         console.log(error);
     }
@@ -79,12 +110,38 @@ const average =reviews.length > 0? reviews.reduce((sum, review) =>sum + review.r
 
             <p>{product.description}</p>
 <h2>Reviews</h2>
+
+<button onClick={getReviewSummary} disabled={loading}>
+{
+                    loading
+                    ? "Thinking..."
+                    : "AI Review Summary"
+                }</button>
+{
+    summary &&
+    (
+        <div>
+            <h3>AI Summary</h3>
+
+            <p>{summary}</p>
+        </div>
+    )
+}
+{
+        loading && (
+            <div>
+                <h3>AI review Summary</h3>
+                <strong>AI:</strong> 🤖 Thinking...
+            </div>
+        )
+    }
+
 <h3>
   Rating: {average.toFixed(1)} ⭐
 </h3>
 {
-    reviews.map((review,index) => (
-        <div key={index}>
+    reviews.map((review) => (
+        <div key={review.id}>
              <h4>{review.reviewer}</h4>
             <p>⭐ {review.rating}/5</p>
             <p>{review.comment}</p>

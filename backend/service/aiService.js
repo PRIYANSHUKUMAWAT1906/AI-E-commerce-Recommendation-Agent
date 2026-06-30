@@ -3,7 +3,7 @@ const pool=require("../database/db");
 require("dotenv").config();
 const genai= new  GoogleGenerativeAI (process.env.GEMINI_API);
 const model=genai.getGenerativeModel({
-    model:"gemini-2.5-flash-lite"
+    model:"gemini-2.5-flash"
 });
 const generateresponse=async(message)=>{
     try{
@@ -86,6 +86,8 @@ ${JSON.stringify(products)}
 Recommend the best product.
 Explain why it is suitable.
 Keep the answer concise.
+if two products are same from point of view you should say to user that there is 
+compare product  ai service you should use it on compare page of web
 `;
 
         const result =
@@ -268,23 +270,74 @@ const compareProducts = async(product1Id, product2Id)=>{
         "SELECT * FROM products WHERE id=$1",
         [product2Id]
     );
+const reviews1 = await pool.query(
+    `
+    SELECT rating, comment
+    FROM reviews
+    WHERE product_id = $1
+    `,
+    [product1Id]
+);
+
+const reviews2 = await pool.query(
+    `
+    SELECT rating, comment
+    FROM reviews
+    WHERE product_id = $1
+    `,
+    [product2Id]
+);
+const avgRating1 = await pool.query(
+    `
+    SELECT AVG(rating)
+    FROM reviews
+    WHERE product_id = $1
+    `,
+    [product1Id]
+);
+
+const avgRating2 = await pool.query(
+    `
+    SELECT AVG(rating)
+    FROM reviews
+    WHERE product_id = $1
+    `,
+    [product2Id]
+);
 
     const prompt = `
-Compare these products:
+
+Compare these products.
 
 Product 1:
 ${JSON.stringify(product1.rows[0])}
 
+Average Rating:
+${avgRating1.rows[0].avg}
+
+Reviews:
+${JSON.stringify(reviews1.rows)}
+
 Product 2:
 ${JSON.stringify(product2.rows[0])}
 
-Return JSON:
+Average Rating:
+${avgRating2.rows[0].avg}
 
-{
- "winner":"",
- "reason":"",
- "comparison":[]
-}
+Reviews:
+${JSON.stringify(reviews2.rows)}
+
+Compare based on:
+- Price
+- Description
+- Customer ratings
+- Customer reviews
+- Overall value
+
+Explain which product is better and why.
+
+Do not use markdown.
+Return plain English.
 `;
 
     const result = await model.generateContent(prompt);
@@ -304,17 +357,21 @@ const reviewSummary = async(productId)=>{
     );
 
     const prompt = `
-Summarize these reviews:
+You are an AI product review analyst.
 
+Reviews:
 ${JSON.stringify(reviews.rows)}
 
-Return JSON:
+Write a short and natural review summary.
 
-{
- "summary":"",
- "pros":[],
- "cons":[]
-}
+Mention:
+- What customers liked
+- What customers disliked
+- Whether you would recommend the product
+
+Do not return JSON.
+Do not return markdown.
+Write in plain English.
 `;
 
     const result=
@@ -331,22 +388,26 @@ async(message)=>{
     );
 
     const prompt=`
-You are an AI shopping assistant.
+You are a friendly AI shopping assistant for an e-commerce website.
 
 User Query:
 ${message}
 
-Products:
+Available Products:
 ${JSON.stringify(products.rows)}
 
-Recommend products.
+Respond naturally like a human shopping assistant.
 
-Return JSON:
+If products match the user's request:
+- Recommend the best products.
+- Explain why they are suitable.
+- Mention prices if available.
 
-{
- "summary":"",
- "recommendations":[]
-}
+Do not return JSON.
+Do not return markdown.
+Do not return code blocks.
+
+Answer in plain conversational English.
 `;
 
     const result=

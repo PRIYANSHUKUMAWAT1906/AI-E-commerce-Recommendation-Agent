@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/Navbar.css"
 
 
 function Navbar(){
@@ -10,35 +10,62 @@ function Navbar(){
     navigate("/login");
 };
     return(
-        <nav>
+       <nav className="navbar">
 
-            <Link to="/">
-                Home
-            </Link>
-            <Link to="/products">
-        Products
-         </Link>
+    <div className="navbar-logo">
+        AI Ecommerce
+    </div>
 
-            <Link to="/login">
-                Login
-            </Link>
-<Link to="/cart">
-    Cart
-</Link>
-            <Link to="/register">
-                Register
-            </Link>
-            <Link to="/profile">
-    Profile
-</Link>
-<Link to="/MyOrder">
-    MyOrders
-</Link>
-<Link to="/wishlist">WishList</Link>
-<button onClick={logout}>
-    Logout
-</button>
-        </nav>
+    <div className="navbar-links">
+
+        <Link to="/">Home</Link>
+
+        <Link to="/products">
+            Products
+        </Link>
+
+        <Link to="/cart">
+            Cart
+        </Link>
+
+        <Link to="/wishlist">
+            Wishlist
+        </Link>
+
+        <Link to="/compareproducts">
+            Compare
+        </Link>
+
+        <Link to="/MyOrder">
+            My Orders
+        </Link>
+
+        <Link to="/profile">
+            Profile
+        </Link>
+
+        <Link to="/admin">
+            Admin
+        </Link>
+
+        <Link to="/login">
+            Login
+        </Link>
+
+        <Link to="/register">
+            Register
+        </Link>
+
+        <button
+            className="logout-btn"
+            onClick={logout}
+        >
+            Logout
+        </button>
+
+    </div>
+
+</nav>
     );
 }
 

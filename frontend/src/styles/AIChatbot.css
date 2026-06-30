@@ -1,0 +1,183 @@
+.chat-toggle{
+
+    position:fixed;
+
+    bottom:20px;
+
+    right:20px;
+
+    width:65px;
+
+    height:65px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:white;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+    box-shadow:0 4px 15px rgba(0,0,0,0.2);
+
+    z-index:1000;
+}
+
+.chat-toggle:hover{
+
+    transform:scale(1.08);
+}
+
+.chat-box{
+
+    position:fixed;
+
+    bottom:95px;
+
+    right:20px;
+
+    width:380px;
+
+    height:520px;
+
+    background:white;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+    box-shadow:0 5px 25px rgba(0,0,0,0.2);
+
+    z-index:1000;
+}
+
+.chat-header{
+
+    background:#1e293b;
+
+    color:white;
+
+    padding:15px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-weight:bold;
+}
+
+.close-btn{
+
+    background:none;
+
+    border:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:16px;
+}
+
+.chat-messages{
+
+    flex:1;
+
+    overflow-y:auto;
+
+    padding:15px;
+
+    background:#f8fafc;
+}
+
+.user-message{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:15px;
+
+    margin-bottom:10px;
+
+    width:fit-content;
+
+    max-width:80%;
+
+    margin-left:auto;
+}
+
+.ai-message{
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    padding:10px 15px;
+
+    border-radius:15px;
+
+    margin-bottom:10px;
+
+    width:fit-content;
+
+    max-width:80%;
+}
+
+.chat-input{
+
+    display:flex;
+
+    gap:10px;
+
+    padding:12px;
+
+    border-top:1px solid #ddd;
+
+    background:white;
+}
+
+.chat-input input{
+
+    flex:1;
+
+    padding:10px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    outline:none;
+}
+
+.chat-input button{
+
+    background:#2563eb;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:10px 15px;
+
+    cursor:pointer;
+}
+
+.chat-input button:disabled{
+
+    background:#94a3b8;
+}
