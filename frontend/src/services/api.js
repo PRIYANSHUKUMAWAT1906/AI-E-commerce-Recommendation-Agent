@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api"
+  baseURL:
+"https://ai-e-commerce-recommendation-agent-ixm69uluh.vercel.app/"
 });
 
 export default api;
