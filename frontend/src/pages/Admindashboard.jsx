@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/AdminDashboard.css";
 function AdminDashboard() {
 
     const navigate = useNavigate();
@@ -146,28 +146,46 @@ function AdminDashboard() {
 
     }, [navigate]);
 
-    return (
+   return (
 
-        <div>
+    <div className="admin-dashboard">
 
-            <h1>Admin Dashboard</h1>
+        <h1>Admin Dashboard</h1>
 
-            <button
-                onClick={() =>
-                    navigate(
-                        "/admin/add-product"
-                    )
-                }
-            >
-                Add Product
-            </button>
+        <button
+            className="add-product-btn"
+            onClick={() =>
+                navigate("/admin/add-product")
+            }
+        >
+            Add Product
+        </button>
 
-            <h3>Total Users: {users.length}</h3>
-            <h3>Total Orders: {orders.length}</h3>
-            <h3>Total Reviews: {reviews.length}</h3>
-            <h3>Total Products: {products.length}</h3>
+        <div className="stats-grid">
 
-            <hr />
+            <div className="stat-card">
+                <h2>{users.length}</h2>
+                <p>Users</p>
+            </div>
+
+            <div className="stat-card">
+                <h2>{orders.length}</h2>
+                <p>Orders</p>
+            </div>
+
+            <div className="stat-card">
+                <h2>{reviews.length}</h2>
+                <p>Reviews</p>
+            </div>
+
+            <div className="stat-card">
+                <h2>{products.length}</h2>
+                <p>Products</p>
+            </div>
+
+        </div>
+
+        <div className="dashboard-section">
 
             <button
                 onClick={() =>
@@ -184,17 +202,26 @@ function AdminDashboard() {
             {
                 showUsers &&
                 users.map(user => (
-                    <div key={user.id}>
-                        <p>
-                            {user.name}
-                            {" - "}
-                            {user.role}
-                        </p>
+
+                    <div
+                        className="product-admin-card"
+                        key={user.id}
+                    >
+
+                        <h3>{user.name}</h3>
+
+                        <p>{user.email}</p>
+
+                        <p>Role: {user.role}</p>
+
                     </div>
+
                 ))
             }
 
-            <hr />
+        </div>
+
+        <div className="dashboard-section">
 
             <button
                 onClick={() =>
@@ -211,17 +238,28 @@ function AdminDashboard() {
             {
                 showOrders &&
                 orders.map(order => (
-                    <div key={order.id}>
-                        <p>
+
+                    <div
+                        className="product-admin-card"
+                        key={order.id}
+                    >
+
+                        <h3>
                             Order #{order.id}
-                            {" | "}
+                        </h3>
+
+                        <p>
                             ₹{order.total_amount}
                         </p>
+
                     </div>
+
                 ))
             }
 
-            <hr />
+        </div>
+
+        <div className="dashboard-section">
 
             <button
                 onClick={() =>
@@ -238,14 +276,28 @@ function AdminDashboard() {
             {
                 showReviews &&
                 reviews.map(review => (
-                    <div key={review.id}>
-                        <p>⭐ {review.rating}</p>
-                        <p>{review.comment}</p>
+
+                    <div
+                        className="product-admin-card"
+                        key={review.id}
+                    >
+
+                        <p>
+                            ⭐ {review.rating}
+                        </p>
+
+                        <p>
+                            {review.comment}
+                        </p>
+
                     </div>
+
                 ))
             }
 
-            <hr />
+        </div>
+
+        <div className="dashboard-section">
 
             <button
                 onClick={() =>
@@ -262,9 +314,15 @@ function AdminDashboard() {
             {
                 showProducts &&
                 products.map(product => (
-                    <div key={product.id}>
 
-                        <h3>{product.name}</h3>
+                    <div
+                        className="product-admin-card"
+                        key={product.id}
+                    >
+
+                        <h3>
+                            {product.name}
+                        </h3>
 
                         <p>
                             ₹{product.price}
@@ -291,12 +349,15 @@ function AdminDashboard() {
                         </button>
 
                     </div>
+
                 ))
             }
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 

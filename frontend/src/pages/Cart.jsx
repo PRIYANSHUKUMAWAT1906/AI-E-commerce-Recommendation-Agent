@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import "../styles/Cart.css";
 function Cart(){
     const token =
         localStorage.getItem("token");
@@ -68,38 +69,105 @@ navigate("/orders");
 };
     
 if(cart.length === 0){
+
     return (
-        <h2>
-            Your cart is empty
-        </h2>
-    );
-}
-    return(
 
-        <div>
+        <div className="empty-cart">
 
-            <h1>Cart</h1>
+            <h2>🛒 Your Cart is Empty</h2>
 
-            {
-                cart.map((item,index)=>(
-                    <div key={index}>
-                        <h3>{item.name}</h3>
-                        <p>₹{item.price}</p>
-                        <button onClick={() => removeItem(index)}> Remove
-</button>
-                    </div>
-                ))
-            }
-            <h2>Total: ₹{total}</h2>
-            <button onClick={()=>{
-                checkout();
-            }}>
-    Checkout
-</button>
+            <p>
+                Looks like you haven't added any products yet.
+            </p>
+
+            <button
+                onClick={() =>
+                    navigate("/products")
+                }
+            >
+                Continue Shopping
+            </button>
 
         </div>
 
     );
+
+}
+
+return (
+
+    <div className="cart-container">
+
+        <h1>Shopping Cart</h1>
+
+        <div className="cart-grid">
+
+            <div className="cart-items">
+
+                {
+                    cart.map((item,index)=>(
+
+                        <div
+                            className="cart-card"
+                            key={index}
+                        >
+
+                            <div>
+
+                                <h3>
+                                    {item.name}
+                                </h3>
+
+                                <p>
+                                    ₹{item.price}
+                                </p>
+
+                            </div>
+
+                            <button
+                                className="remove-btn"
+                                onClick={() =>
+                                    removeItem(index)
+                                }
+                            >
+                                Remove
+                            </button>
+
+                        </div>
+
+                    ))
+                }
+
+            </div>
+
+            <div className="cart-summary">
+
+                <h2>Order Summary</h2>
+
+                <div className="summary-row">
+                    <span>Total Items</span>
+                    <span>{cart.length}</span>
+                </div>
+
+                <div className="summary-row">
+                    <span>Total Amount</span>
+                    <span>₹{total}</span>
+                </div>
+
+                <button
+                    className="checkout-btn"
+                    onClick={checkout}
+                >
+                    Proceed to Checkout
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+);
 
 }
 

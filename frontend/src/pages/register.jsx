@@ -1,7 +1,9 @@
 import { useState } from "react";
 import api from "../services/api";
+import "../styles/Register.css";
+import { useNavigate } from "react-router-dom";
 function Register() {
-
+const navigate = useNavigate();
    const [formData,setFormData] = useState({
     name:"",
     email:"",
@@ -33,40 +35,59 @@ const handleSubmit = (e) => {
 };
 
     return (
-        <div>
-            <h1>Register</h1>
-<form onSubmit={handleSubmit}>
- <input
-    type="text"
-    name="name"
-    placeholder="name"
-    value={formData.name}
-    onChange={handleChange}
-/>
 
-<input
-    type="email"
-    name="email"
-    placeholder="email"
-    value={formData.email}
-    onChange={handleChange}
-/>
+    <div className="register-container">
 
-<input
-    type="password"
-    name="password"
-    placeholder="password"
-    value={formData.password}
-    onChange={handleChange}
-/>
-            <button type="submit">
-                Register
-            </button>
-</form>
-          
-           
+        <div className="register-card">
+
+            <h1>Create Account</h1>
+
+            <form
+                className="register-form"
+                onSubmit={handleSubmit}
+            >
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Full Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
+
+                <button type="submit">
+                    Register
+                </button>
+
+            </form>
+
+            <div className="register-footer">
+                <a onClick={()=>{
+                    navigate("/login")
+                }} >Already Have account</a>
+            </div>
+
         </div>
-    );
+
+    </div>
+
+);
 }
 
 export default Register;

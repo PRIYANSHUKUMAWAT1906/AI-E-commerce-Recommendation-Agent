@@ -1,17 +1,21 @@
 import { useState } from "react";
 import api from "../services/api";
+import "../styles/AIChatbot.css";
 
 function AIChatbot() {
 
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-const [loading,setLoading] =useState(false);
+    const [loading, setLoading] = useState(false);
+
     const askAI = async () => {
 
         if (!message.trim()) return;
-setLoading(true);
+
         try {
+
+            setLoading(true);
 
             const userMessage = message;
 
@@ -36,23 +40,28 @@ setLoading(true);
                 ...prev,
                 {
                     role: "ai",
-                    text:
-                        response.data
+                    text: response.data
                 }
             ]);
 
-        }
-        
-         catch (error) {
+        } catch (error) {
 
             console.log(error);
 
+            setMessages(prev => [
+                ...prev,
+                {
+                    role: "ai",
+                    text: "Sorry, something went wrong."
+                }
+            ]);
+
+        } finally {
+
+            setLoading(false);
+
         }
-finally{
 
-    setLoading(false);
-
-}
     };
 
     return (
@@ -60,6 +69,7 @@ finally{
         <div>
 
             <button
+                className="chat-toggle"
                 onClick={() => setOpen(!open)}
             >
                 💬
@@ -67,68 +77,80 @@ finally{
 
             {
                 open && (
-                    <div>
 
-                        <h3>
-                            AI Shopping Assistant
-                        </h3>
+                    <div className="chat-box">
 
-                        <div>
+                        <div className="chat-header">
+
+                            <span>
+                                🤖 AI Shopping Assistant
+                            </span>
+
+                            <button
+                                className="close-btn"
+                                onClick={() => setOpen(false)}
+                            >
+                                ✖
+                            </button>
+
+                        </div>
+
+                        <div className="chat-messages">
 
                             {
                                 messages.map(
                                     (msg, index) => (
-                                        <div key={index}>
 
-                                            <strong>
-                                                {
-                                                    msg.role === "user"
-                                                        ? "You"
-                                                        : "AI"
-                                                }
-                                                :
-                                            </strong>
-
-                                            {" "}
+                                        <div
+                                            key={index}
+                                            className={
+                                                msg.role === "user"
+                                                    ? "user-message"
+                                                    : "ai-message"
+                                            }
+                                        >
                                             {msg.text}
-
                                         </div>
+
                                     )
                                 )
                             }
+
                             {
-        loading && (
-            <div>
-                <strong>AI:</strong> 🤖 Thinking...
-            </div>
-        )
-    }
+                                loading &&
+                                (
+                                    <div className="ai-message">
+                                        🤖 Thinking...
+                                    </div>
+                                )
+                            }
 
                         </div>
 
-                        <input
-                            type="text"
-                            placeholder="Ask about products..."
-                            value={message}
-                            onChange={(e) =>
-                                setMessage(
-                                    e.target.value
-                                )
-                            }
-                        />
+                        <div className="chat-input">
 
-                        <button
-                            onClick={askAI}
-                            disabled={loading}
-                        >
-                           {
-                    loading
-                    ? "Thinking..."
-                    : "Ask AI"
-                }
-                        </button>
+                            <input
+                                type="text"
+                                placeholder="Ask about products..."
+                                value={message}
+                                onChange={(e) =>
+                                    setMessage(
+                                        e.target.value
+                                    )
+                                }
+                            />
+
+                            <button
+                                onClick={askAI}
+                                disabled={loading}
+                            >
+                                Send
+                            </button>
+
+                        </div>
 
                     </div>
+
                 )
             }
 

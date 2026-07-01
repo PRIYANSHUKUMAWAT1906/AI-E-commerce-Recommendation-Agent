@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/Profile.css";
 function Profile(){
 const navigate = useNavigate();
     const [profile,setProfile] = useState(null);
@@ -68,6 +68,13 @@ finally{
                             }
                         }
                     );
+          localStorage.setItem(
+    "role",
+    response.data.user.role
+);
+          
+                    console.log(response.data);
+
 
                 setProfile(response.data);
 
@@ -86,64 +93,102 @@ finally{
 
     return(
 
-        <div>
+       <div className="profile-container">
 
-            <h1>Profile</h1>
+    <div className="profile-card">
 
+        <h1>Profile</h1>
+
+        {
+            profile && (
+                <>
+                    <p>
+                        Email:
+                        {" "}
+                        {profile.user.email}
+                    </p>
+
+                    <p>
+                        Role:
+                        {" "}
+                        {profile.user.role}
+                    </p>
+                </>
+            )
+        }
+
+    </div>
+
+    <div className="recommendation-section">
+
+        <h2>
+            AI Recommendations For You
+        </h2>
+
+        <button
+            className="recommend-btn"
+            onClick={getRecommendations}
+            disabled={loading}
+        >
             {
-                profile && (
-                    <>
-                        <p>Email: {profile.user.email}</p>
-                        <p>Role: {profile.user.role}</p>
-                    </>
-                )
+                loading
+                ? "Generating..."
+                : "Get Recommendations"
             }
-<h2>Recommended For You</h2>
-<button onClick={getRecommendations}  disabled={loading}>
-       {
-                    loading
-                    ? "Thinking..."
-                    : "Get AI personalised recommendation"
-                }
-</button>
-{
-    recommendations && (
-        <div>
+        </button>
 
-            <p>
-                {recommendations.summary}
-            </p>
+        {
+            loading &&
+            (
+                <div className="ai-loading">
+                    🤖 AI is analyzing your shopping history...
+                </div>
+            )
+        }
 
-            {
-                recommendations.recommendations.map(
-                    (item,index) => (
-                        <div key={index}>
+        {
+            recommendations &&
+            (
+                <>
+                    <div className="summary-box">
 
-                            <h4>
-                                {item.product}
-                            </h4>
+                        <strong>
+                            AI Summary
+                        </strong>
 
-                            <p>
-                                {item.reason}
-                            </p>
+                        <p>
+                            {recommendations.summary}
+                        </p>
 
-                        </div>
-                    )
-                )
-            }
+                    </div>
 
-        </div>
-    )
-}
-{
-        loading && (
-            <div>
-                <strong>AI:</strong> 🤖 Thinking...
-            </div>
-        )
-    }
+                    {
+                        recommendations.recommendations.map(
+                            (item,index)=>(
+                                <div
+                                    key={index}
+                                    className="recommendation-card"
+                                >
 
-        </div>
+                                    <h4>
+                                        {item.product}
+                                    </h4>
+
+                                    <p>
+                                        {item.reason}
+                                    </p>
+
+                                </div>
+                            )
+                        )
+                    }
+                </>
+            )
+        }
+
+    </div>
+
+</div>
 
     );
 

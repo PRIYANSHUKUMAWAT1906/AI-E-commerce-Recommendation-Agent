@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/Login.css";
 import api from "../services/api";
 function Login(){
 const navigate = useNavigate();
@@ -40,31 +40,49 @@ navigate("/profile");
 };
 
     return(
-        <div>
+         <div className="login-container">
+
+        <div className="login-card">
 
             <h1>Login</h1>
-<form onSubmit={handleSubmit}>
-            <input
-            name="email"
-                type="email"
-                placeholder="Email"
-                value={formData.email}
-             onChange={handleChange}
-            />
 
-            <input
-             name="password"
-                type="password"
-                placeholder="Password"
-                 value={formData.password}
-                 onChange={handleChange}
-            /> 
+            <form
+                className="login-form"
+                onSubmit={handleSubmit}
+            >
 
-            <button type="submit">
-                Login
-            </button>
-</form>
+                <input
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+
+                <input
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                />
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+            <div className="login-footer" >
+                <a onClick={()=>{
+                    navigate("/register");
+                }}>Don't have an account?</a>
+            </div>
+
         </div>
+
+    </div>
+
     );
 }
 

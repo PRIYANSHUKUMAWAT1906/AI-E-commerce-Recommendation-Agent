@@ -1,72 +1,101 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../styles/Navbar.css"
+import "../styles/Navbar.css";
 
+function Navbar() {
 
-function Navbar(){
- const navigate = useNavigate();
- const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-};
-    return(
-       <nav className="navbar">
+    const navigate = useNavigate();
 
-    <div className="navbar-logo">
-        AI Ecommerce
-    </div>
+    const token =
+        localStorage.getItem("token");
 
-    <div className="navbar-links">
+    const role =
+        localStorage.getItem("role");
 
-        <Link to="/">Home</Link>
+    const logout = () => {
 
-        <Link to="/products">
-            Products
-        </Link>
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
 
-        <Link to="/cart">
-            Cart
-        </Link>
+    window.location.href = "/login";
 
-        <Link to="/wishlist">
-            Wishlist
-        </Link>
+    };
 
-        <Link to="/compareproducts">
-            Compare
-        </Link>
+    return (
 
-        <Link to="/MyOrder">
-            My Orders
-        </Link>
+        <nav className="navbar">
 
-        <Link to="/profile">
-            Profile
-        </Link>
+            <div className="navbar-logo">
+                AI Ecommerce
+            </div>
 
-        <Link to="/admin">
-            Admin
-        </Link>
+            <div className="navbar-links">
 
-        <Link to="/login">
-            Login
-        </Link>
+                <Link to="/">
+                    Home
+                </Link>
 
-        <Link to="/register">
-            Register
-        </Link>
+                <Link to="/products">
+                    Products
+                </Link>
 
-        <button
-            className="logout-btn"
-            onClick={logout}
-        >
-            Logout
-        </button>
+                <Link to="/cart">
+                    Cart
+                </Link>
 
-    </div>
+                <Link to="/wishlist">
+                    Wishlist
+                </Link>
 
-</nav>
+                <Link to="/compareproducts">
+                    Compare
+                </Link>
+
+                <Link to="/MyOrder">
+                    My Orders
+                </Link>
+
+              
+                {
+                    !token ? (
+                        <>
+                            <Link to="/login">
+                                Login
+                            </Link>
+
+                            <Link to="/register">
+                                Register
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/profile">
+                                Profile
+                            </Link>
+                           {
+                    role === "admin" && (
+                        <Link to="/admin">
+                            Admin
+                        </Link>
+                    )
+                }
+
+                            <button
+                                className="logout-btn"
+                                onClick={logout}
+                            >
+                                Logout
+                            </button>
+                        </>
+                    )
+                }
+
+            </div>
+
+        </nav>
+
     );
+
 }
 
 export default Navbar;

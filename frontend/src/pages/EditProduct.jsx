@@ -2,7 +2,7 @@ import { useEffect,useState } from "react";
 import { useParams,useNavigate }
 from "react-router-dom";
 import api from "../services/api";
-
+import "../styles/Productmanage.css"
 function EditProduct(){
 
     const { id } = useParams();
@@ -68,35 +68,59 @@ function EditProduct(){
 
     };
 
-    return(
+    return (
 
-        <div>
+    <div className="add-product-container">
+
+        <div className="add-product-card">
 
             <h1>Edit Product</h1>
 
-            <input
-                value={name}
-                onChange={(e)=>
-                    setName(e.target.value)
-                }
-            />
+            <p>
+                Update product information.
+            </p>
 
-            <input
-                value={price}
-                onChange={(e)=>
-                    setPrice(e.target.value)
-                }
-            />
+            <div className="product-form">
 
-            <button
-                onClick={updateProduct}
-            >
-                Save Changes
-            </button>
+                <label>
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Enter product name"
+                    value={name}
+                    onChange={(e)=>
+                        setName(e.target.value)
+                    }
+                />
+
+                <label>
+                    Product Price
+                </label>
+
+                <input
+                    type="number"
+                    placeholder="Enter price"
+                    value={price}
+                    onChange={(e)=>
+                        setPrice(e.target.value)
+                    }
+                />
+
+                <button
+                    onClick={updateProduct}
+                >
+                    Save Changes
+                </button>
+
+            </div>
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 

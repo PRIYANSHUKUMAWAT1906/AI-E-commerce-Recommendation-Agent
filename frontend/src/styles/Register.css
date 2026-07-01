@@ -1,0 +1,94 @@
+.register-container{
+
+    min-height:80vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#f8fafc;
+}
+
+.register-card{
+
+    width:450px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.register-card h1{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    color:#1e293b;
+}
+
+.register-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.register-form input{
+
+    padding:12px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    outline:none;
+}
+
+.register-form input:focus{
+
+    border-color:#2563eb;
+}
+
+.register-form button{
+
+    background:#16a34a;
+
+    color:white;
+
+    border:none;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.register-form button:hover{
+
+    background:#15803d;
+}
+
+.register-footer{
+
+    text-align:center;
+
+    margin-top:15px;
+
+    color:#64748b;
+}

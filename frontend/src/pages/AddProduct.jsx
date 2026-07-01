@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-
+import "../styles/Productmanage.css"
 function AddProduct() {
 
     const navigate = useNavigate();
@@ -42,31 +42,57 @@ function AddProduct() {
 
     return (
 
-        <div>
 
-            <h1>Add Product</h1>
+    <div className="add-product-container">
 
-            <input
-                placeholder="Name"
-                value={name}
-                onChange={(e)=>
-                    setName(e.target.value)
-                }
-            />
+        <div className="add-product-card">
 
-            <input
-                placeholder="Price"
-                value={price}
-                onChange={(e)=>
-                    setPrice(e.target.value)
-                }
-            />
+            <h1>Add New Product</h1>
 
-            <button onClick={addProduct}>
-                Add Product
-            </button>
+            <p>
+                Create a new product for your store.
+            </p>
+
+            <div className="product-form">
+
+                <label>
+                    Product Name
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Enter product name"
+                    value={name}
+                    onChange={(e)=>
+                        setName(e.target.value)
+                    }
+                />
+
+                <label>
+                    Product Price
+                </label>
+
+                <input
+                    type="number"
+                    placeholder="Enter price"
+                    value={price}
+                    onChange={(e)=>
+                        setPrice(e.target.value)
+                    }
+                />
+
+                <button
+                    onClick={addProduct}
+                >
+                    Add Product
+                </button>
+
+            </div>
 
         </div>
+
+    </div>
+
 
     );
 

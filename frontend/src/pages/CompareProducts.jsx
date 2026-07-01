@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import "../styles/CompareProducts.css";
 function CompareProducts(){
     const [products, setProducts] = useState([]);
 const [product1, setProduct1] = useState("");
@@ -49,82 +50,136 @@ finally{
 }
 };
 return(
-    <div>
-        <h1>Compare products</h1>
-        <select
-    value={product1}
-    onChange={(e) =>
-        setProduct1(e.target.value)
-    }
->
-    <option value="">
-        Select Product 1
-    </option>
 
-    {
-        products.map(product => (
-            <option
-                key={product.id}
-                value={product.id}
-            >
-                {product.name}
-            </option>
-        ))
-    }
-</select>
-<select
-    value={product2}
-    onChange={(e) =>
-        setProduct2(e.target.value)
-    }
->
-    <option value="">
-        Select Product 2
-    </option>
+    <div className="compare-container">
 
-    {
-        products.map(product => (
-            <option
-                key={product.id}
-                value={product.id}
-            >
-                {product.name}
-            </option>
-        ))
-    }
-</select>
-<button onClick={compareProducts}
- disabled={loading} >   {
-                    loading
-                    ? "Thinking..."
-                    : "Compare Products"
-                }
-    
-</button>
-{
-    comparison &&
-    (
-        <div>
+        <div className="compare-header">
 
-            <h2>
-                AI Comparison
-            </h2>
+            <h1>⚖ AI Product Comparison</h1>
 
             <p>
-                {comparison}
+                Select any two products and let AI
+                analyze which one is best for you.
             </p>
 
         </div>
-    )
-}
- {
-        loading && (
-            <div>
-                <strong>AI:</strong> 🤖 Thinking...
+
+        <div className="compare-card">
+
+            <div className="select-group">
+
+                <div>
+
+                    <label>
+                        Product 1
+                    </label>
+
+                    <select
+                        value={product1}
+                        onChange={(e)=>
+                            setProduct1(
+                                e.target.value
+                            )
+                        }
+                    >
+                        <option value="">
+                            Select Product 1
+                        </option>
+
+                        {
+                            products.map(product=>(
+                                <option
+                                    key={product.id}
+                                    value={product.id}
+                                >
+                                    {product.name}
+                                </option>
+                            ))
+                        }
+
+                    </select>
+
+                </div>
+
+                <div>
+
+                    <label>
+                        Product 2
+                    </label>
+
+                    <select
+                        value={product2}
+                        onChange={(e)=>
+                            setProduct2(
+                                e.target.value
+                            )
+                        }
+                    >
+                        <option value="">
+                            Select Product 2
+                        </option>
+
+                        {
+                            products.map(product=>(
+                                <option
+                                    key={product.id}
+                                    value={product.id}
+                                >
+                                    {product.name}
+                                </option>
+                            ))
+                        }
+
+                    </select>
+
+                </div>
+
             </div>
-        )
-    }
+
+            <button
+                className="compare-btn"
+                onClick={compareProducts}
+                disabled={loading}
+            >
+                {
+                    loading
+                    ? "Analyzing..."
+                    : "Compare Products"
+                }
+            </button>
+
+        </div>
+
+        {
+            loading &&
+            (
+                <div className="loading-box">
+
+                    🤖 AI is comparing products...
+
+                </div>
+            )
+        }
+
+        {
+            comparison &&
+            (
+                <div className="comparison-result">
+
+                    <h2>
+                        AI Comparison Result
+                    </h2>
+
+                    <p>
+                        {comparison}
+                    </p>
+
+                </div>
+            )
+        }
+
     </div>
-)
+
+);
 };
 export default CompareProducts;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import "../styles/MyOrders.css";
 function MyOrders() {
 const navigate = useNavigate();
     const [orders,setOrders] =
@@ -52,35 +53,86 @@ const navigate = useNavigate();
         fetchOrders();
 
     }, []);
-  if(orders.length === 0){
+ if(orders.length === 0){
+
     return (
-        <h2>
-            No orders found
-        </h2>
+
+        <div className="empty-orders">
+
+            <h2>📦 No Orders Yet</h2>
+
+            <p>
+                You haven't placed any orders yet.
+            </p>
+
+            <button
+                onClick={() =>
+                    navigate("/products")
+                }
+            >
+                Start Shopping
+            </button>
+
+        </div>
+
     );
+
 }
-    return (
 
-        <div>
+return (
 
-            <h1>My Orders</h1>
+    <div className="orders-container">
+
+        <div className="orders-header">
+
+            <h1>📦 My Orders</h1>
+
+            <p>
+                Track and manage your purchases.
+            </p>
+
+        </div>
+
+        <div className="orders-grid">
 
             {
                 orders.map(order => (
 
-                    <div key={order.id}>
+                    <div
+                        className="order-card"
+                        key={order.id}
+                    >
 
-                        <p>
-                            Order ID:
-                            {order.id}
-                        </p>
+                        <div className="order-top">
 
-                        <p>
-                            Total:
+                            <h3>
+                                Order #{order.id}
+                            </h3>
+
+                            <span className="order-status">
+                                Completed
+                            </span>
+
+                        </div>
+
+                        <p className="order-total">
+
                             ₹{order.total_amount}
+
                         </p>
-                    <Link to={`/orders/${order.id}`}>
-                  <button>  View Details</button></Link>
+
+                        <Link
+                            to={`/orders/${order.id}`}
+                        >
+
+                            <button
+                                className="details-btn"
+                            >
+                                View Details
+                            </button>
+
+                        </Link>
+
                     </div>
 
                 ))
@@ -88,7 +140,9 @@ const navigate = useNavigate();
 
         </div>
 
-    );
+    </div>
+
+);
 
 }
 

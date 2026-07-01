@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../services/api";
-
+import "../styles/OrderDetails.css";
 function OrderDetails() {
 
     const { id } = useParams();
@@ -47,24 +47,71 @@ function OrderDetails() {
     }
 
     return (
-        <div>
 
-            <h1>Order Details</h1>
- <h2>
-      Total Amount: ₹{order[0].total_amount}
-    </h2>
+    <div className="order-details-container">
+
+        <div className="order-header">
+
+            <h1>📦 Order Details</h1>
+
+            <p>
+                Order #{id}
+            </p>
+
+        </div>
+
+        <div className="order-summary">
+
+            <h2>
+                Total Amount
+            </h2>
+
+            <span>
+                ₹{order[0].total_amount}
+            </span>
+
+        </div>
+
+        <div className="products-list">
 
             {
-  order.map(item => (
-    <div key={item.product_id}>
-      <h3>{item.name}</h3>
-      <p>₹{item.price}</p>
-      <p>Qty: {item.quantity}</p>
-    </div>
-  ))
-}
+                order.map(item => (
+
+                    <div
+                        className="product-item"
+                        key={item.product_id}
+                    >
+
+                        <div>
+
+                            <h3>
+                                {item.name}
+                            </h3>
+
+                            <p>
+                                Quantity:
+                                {" "}
+                                {item.quantity}
+                            </p>
+
+                        </div>
+
+                        <div className="product-price">
+
+                            ₹{item.price}
+
+                        </div>
+
+                    </div>
+
+                ))
+            }
+
         </div>
-    );
+
+    </div>
+
+);
 
 }
 

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import "../styles/ProductDetails.css";
 function ProductDetails() {
 const navigate = useNavigate();
     const { id } = useParams();
@@ -102,69 +103,112 @@ const average =reviews.length > 0? reviews.reduce((sum, review) =>sum + review.r
     }
 
     return (
-        <div>
+       <div className="product-details">
 
-            <h1>{product.name}</h1>
+    <div className="product-info">
 
-            <p>Price: ₹{product.price}</p>
+        <h1>{product.name}</h1>
 
-            <p>{product.description}</p>
-<h2>Reviews</h2>
+        <h2>₹{product.price}</h2>
 
-<button onClick={getReviewSummary} disabled={loading}>
-{
-                    loading
-                    ? "Thinking..."
-                    : "AI Review Summary"
-                }</button>
-{
-    summary &&
-    (
-        <div>
-            <h3>AI Summary</h3>
+        <p>{product.description}</p>
 
-            <p>{summary}</p>
+    </div>
+
+    <div className="review-section">
+
+        <div className="review-header">
+
+            <h2 className="main_text">Customer Reviews</h2>
+
+            <h3>
+                ⭐ {average.toFixed(1)}
+            </h3>
+
         </div>
-    )
-}
-{
-        loading && (
-            <div>
-                <h3>AI review Summary</h3>
-                <strong>AI:</strong> 🤖 Thinking...
-            </div>
-        )
-    }
 
-<h3>
-  Rating: {average.toFixed(1)} ⭐
-</h3>
-{
-    reviews.map((review) => (
-        <div key={review.id}>
-             <h4>{review.reviewer}</h4>
-            <p>⭐ {review.rating}/5</p>
-            <p>{review.comment}</p>
-        </div>
-    ))
-}
-<input
-    type="number"
-    min="1"
-    max="5"
-    value={rating}
-    onChange={(e) => setRating(e.target.value)}
-/>
+        <button
+            className="ai-summary-btn"
+            onClick={getReviewSummary}
+            disabled={loading}
+        >
+            {
+                loading
+                ? "Analyzing..."
+                : "AI Review Summary"
+            }
+        </button>
 
-<textarea
-    value={comment}
-    onChange={(e) => setComment(e.target.value)}
-/>
+        {
+            summary &&
+            (
+                <div className="summary-box">
 
-<button onClick={submitReview}>
-    Submit Review
-</button>
-        </div>
+                    <h3>🤖 AI Summary</h3>
+
+                    <p>{summary}</p>
+
+                </div>
+            )
+        }
+
+        {
+            reviews.map((review,index) => (
+
+                <div
+                    className="review-card"
+                    key={review.id || index}
+                >
+
+                    <h4>
+                        {review.reviewer}
+                    </h4>
+
+                    <p>
+                        ⭐ {review.rating}/5
+                    </p>
+
+                    <p>
+                        {review.comment}
+                    </p>
+
+                </div>
+
+            ))
+        }
+
+    </div>
+
+    <div className="review-form">
+
+        <h3>Add Review</h3>
+
+        <input
+            type="number"
+            min="1"
+            max="5"
+            placeholder="Rating"
+            value={rating}
+            onChange={(e)=>
+                setRating(e.target.value)
+            }
+        />
+
+        <textarea
+            placeholder="Write your review..."
+            value={comment}
+            onChange={(e)=>
+                setComment(e.target.value)
+            }
+        />
+
+        <button onClick={submitReview}>
+            Submit Review
+        </button>
+
+    </div>
+
+</div>
     );
 }
 
