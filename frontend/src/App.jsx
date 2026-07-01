@@ -16,6 +16,7 @@ import AIChatbot from "./components/Aichatbox";
 import CompareProducts from "./pages/CompareProducts";
 import AddProduct from "./pages/AddProduct";
 import EditProduct from "./pages/EditProduct";
+import AboutContact from "./pages/AboutContact";
 function App() {
   return (
     <BrowserRouter>
@@ -33,15 +34,10 @@ function App() {
 <Route path="/wishlist" element={<Wishlist/>}></Route>
 <Route path="/admin"element={<AdminDashboard />}/>
 <Route path="/compareproducts"element={<CompareProducts />}/>
-<Route
-    path="/admin/add-product"
-    element={<AddProduct />}
-/>
+<Route path="/admin/add-product" element={<AddProduct />}/>
 
-<Route
-    path="/admin/edit-product/:id"
-    element={<EditProduct />}
-/>
+<Route path="/admin/edit-product/:id" element={<EditProduct />}/>
+<Route path="/about"    element={<AboutContact />}/>
       </Routes>
       <AIChatbot />
     </BrowserRouter>

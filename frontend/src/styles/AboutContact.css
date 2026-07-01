@@ -1,0 +1,77 @@
+.about-page{
+
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:40px 20px;
+}
+
+.hero-section{
+
+    text-align:center;
+
+    margin-bottom:40px;
+}
+
+.hero-section h1{
+
+    font-size:48px;
+
+    color:#2563eb;
+
+    margin-bottom:15px;
+}
+
+.hero-section p{
+
+    font-size:20px;
+
+    color:#64748b;
+
+    line-height:1.8;
+}
+
+.section-card{
+
+    background:white;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+
+    transition:0.3s;
+}
+
+.section-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,0.12);
+}
+
+.section-card h2{
+
+    color:#2563eb;
+
+    margin-bottom:15px;
+}
+
+.section-card p,
+.section-card li{
+
+    color:#475569;
+
+    line-height:1.8;
+}
+
+.section-card ul{
+
+    padding-left:20px;
+}

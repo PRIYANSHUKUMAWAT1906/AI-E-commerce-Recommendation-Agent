@@ -38,7 +38,7 @@ function Navbar() {
                 <Link to="/products">
                     Products
                 </Link>
-
+     <Link to="/about"> About</Link>
                 <Link to="/cart">
                     Cart
                 </Link>
