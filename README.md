@@ -313,11 +313,12 @@ Analyzes user behavior and preferences to generate personalized product suggesti
 
 B.Tech Electrical Engineering Student
 
-GitHub: `(https://github.com/PRIYANSHUKUMAWAT1906)`
+GitHub: [`(https://github.com/PRIYANSHUKUMAWAT1906)`](https://github.com/PRIYANSHUKUMAWAT1906)
 
-LinkedIn: `(https://www.linkedin.com/in/priyanshu-kumawat-73b569322/)`
+LinkedIn: [`(https://www.linkedin.com/in/priyanshu-kumawat-73b569322/)`](https://www.linkedin.com/in/priyanshu-kumawat-73b569322/)
 
-Portfolio:`(https://my-portfolio-oj4w.onrender.com/)`
+Portfolio: [`(https://my-portfolio-oj4w.onrender.com/)`](https://my-portfolio-oj4w.onrender.com/))
+
 ---
 
 ## License
